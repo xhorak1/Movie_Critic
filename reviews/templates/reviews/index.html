@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Critic</title>
+    <title>Movie Critic - Movie List</title>
 </head>
 <body>
     <h1>Movie List</h1>
     <ul>
         {% for movie in movies %}
-            <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
+            <li>
+                <a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a> - Directed by {{ movie.director }} - Released on {{ movie.release_date }}
+            </li>
         {% endfor %}
     </ul>
 </body>
