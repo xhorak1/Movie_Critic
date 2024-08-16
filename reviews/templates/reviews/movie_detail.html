@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ movie.title }} - Movie Critic</title>
+    <title>{{ movie.title }} - Details</title>
+    <!-- Add your CSS and other head elements here -->
 </head>
 <body>
     <h1>{{ movie.title }}</h1>
-    <p><strong>Director:</strong> {{ movie.director }}</p>
+    <p><strong>Rating:</strong> {{ movie.rating }}</p>
     <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
     <p><strong>Genre:</strong> {{ movie.genre }}</p>
-    <h2>Reviews</h2>
-    <ul>
-        {% for review in movie.review_set.all %}
-            <li>{{ review.review_text }} - {{ review.rating }}/10</li>
-        {% endfor %}
-    </ul>
+    <p><strong>Description:</strong> {{ movie.description }}</p>
     <a href="{% url 'index' %}">Back to Movie List</a>
 </body>
 </html>

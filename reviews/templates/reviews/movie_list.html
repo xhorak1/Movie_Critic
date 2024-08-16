@@ -1,0 +1,11 @@
+<!-- reviews/templates/reviews/movie_list.html -->
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Movie List</h1>
+  <ul>
+    {% for movie in movies %}
+      <li>{{ movie.title }} - {{ movie.rating }}/10</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
