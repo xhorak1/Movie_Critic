@@ -1,40 +1,30 @@
-<!-- reviews/templates/reviews/index.html -->
 {% extends 'base_generic.html' %}
 
 {% block content %}
+<div class="container mt-4">
   {% if username %}
-    <p>Welcome, {{ username }}!</p>
+    <p class="welcome-text">Welcome, {{ username }}!</p>
   {% else %}
-    <p>Welcome, Guest! Please <a href="{% url 'signup' %}">sign up</a> or <a href="{% url 'login' %}">log in</a>.</p>
+    <p class="welcome-text">Welcome, Guest! Please <a href="{% url 'signup' %}">sign up</a> or <a href="{% url 'login' %}">log in</a>.</p>
   {% endif %}
 
-  <h1>Movie List</h1>
 
-  <div class="movie-grid">
+    <h1 class="text-center movie-list-title">Movie List</h1>
+
+  <div class="row movie-grid">
     {% for movie in movies %}
-      <div class="movie-card">
-        <h2><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></h2>
-        <p>Rating: {{ movie.rating }}/10</p>
-        <p>Genre: {{ movie.genre }}</p>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 movie-card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title">
+              <a href="{% url 'movie_detail' movie.id %}" class="movie-link">{{ movie.title }}</a>
+            </h2>
+            <p class="card-text">Rating: {{ movie.rating }}/10</p>
+            <p class="card-text">Genre: {{ movie.genre }}</p>
+          </div>
+        </div>
       </div>
     {% endfor %}
   </div>
+</div>
 {% endblock %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Critic - Movie List</title>
-</head>
-<body>
-    <h1>Movie Critic</h1>
-    <ul>
-        {% for movie in movies %}
-            <li>
-                <a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a> - Directed by {{ movie.director }} - Released on {{ movie.release_date }}
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>

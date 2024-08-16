@@ -7,12 +7,24 @@ from .forms import ReviewForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
 def index(request):
     movies = Movie.objects.all()
     return render(request, 'reviews/index.html', {'movies': movies, 'user': request.user})
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
-    return render(request, 'reviews/movie_detail.html', {'movie': movie})
+    reviews = movie.reviews.all()
+
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            review_text = request.POST.get('review_text')
+            rating = request.POST.get('rating')
+            Review.objects.create(movie=movie, user=request.user, review_text=review_text, rating=rating)
+            return redirect('movie_detail', movie_id=movie_id)
+        else:
+            return redirect('login')  # Redirect to login if the user is not authenticated
+
+    return render(request, 'reviews/movie_detail.html', {'movie': movie, 'reviews': reviews})
 
 def signup(request):
     if request.method == 'POST':

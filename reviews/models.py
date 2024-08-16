@@ -15,10 +15,9 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 class Review(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     review_text = models.TextField()
+    rating = models.IntegerField(default=5)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.user.username}'s review of {self.movie.title}"
