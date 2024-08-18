@@ -1,0 +1,119 @@
+{% extends 'base_generic.html' %}
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_title">Title:</label>
+        <input type="text" name="title" id="id_title" class="form-control" required>
+        {% if form.title.errors %}
+            <div class="alert alert-danger">{{ form.title.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="id_genre">Genre:</label>
+        <input type="text" name="genre" id="id_genre" class="form-control" required>
+        {% if form.genre.errors %}
+            <div class="alert alert-danger">{{ form.genre.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="id_release_date">Release Date:</label>
+        <input type="date" name="release_date" id="id_release_date" class="form-control" required>
+        {% if form.release_date.errors %}
+            <div class="alert alert-danger">{{ form.release_date.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="id_rating">Rating:</label>
+        <input type="number" name="rating" id="id_rating" class="form-control" required>
+        {% if form.rating.errors %}
+            <div class="alert alert-danger">{{ form.rating.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="id_director">Director:</label>
+        <input type="text" name="director" id="id_director" class="form-control" required>
+        {% if form.director.errors %}
+            <div class="alert alert-danger">{{ form.director.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Movie</button>
+</form>
+
+{% block content %}
+  <h1>Movie Database</h1>
+
+  <!-- Filtering and Sorting Controls -->
+  <form method="get">
+    <label for="genre">Filter by Genre:</label>
+    <select name="genre" id="genre">
+      <option value="">All</option>
+      {% for genre in genres %}
+        <option value="{{ genre }}">{{ genre }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="sort">Sort by:</label>
+    <select name="sort" id="sort">
+      <option value="title">Title</option>
+      <option value="release_date">Release Date</option>
+      <option value="rating">Rating</option>
+    </select>
+
+    <button type="submit">Apply</button>
+  </form>
+
+  <!-- Movie List -->
+  <div class="movie-grid">
+    {% for movie in movies %}
+      <div class="movie-card">
+        <h2>{{ movie.title }}</h2>
+        <p>Directed by: {{ movie.director }}</p>
+        <p>Genre: {{ movie.genre }}</p>
+        <p>Rating: {{ movie.rating }}/10</p>
+        <p>Release Date: {{ movie.release_date }}</p>
+      </div>
+    {% empty %}
+      <p>No movies found.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Add New Movie Form -->
+  {% if user.is_authenticated %}
+    <h2>Add a New Movie</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title" required><br>
+
+      <label for="director">Director:</label>
+      <input type="text" name="director" id="director" required><br>
+
+      <label for="genre">Genre:</label>
+      <input type="text" name="genre" id="genre" required><br>
+
+      <label for="release_date">Release Date:</label>
+      <input type="date" name="release_date" id="release_date" required><br>
+
+      <label for="rating">Rating (1-10):</label>
+      <input type="number" name="rating" id="rating" min="1" max="10" required><br>
+
+      <button type="submit">Add Movie</button>
+    </form>
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to add a new movie.</p>
+  {% endif %}
+{% endblock %}

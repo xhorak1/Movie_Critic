@@ -11,6 +11,8 @@
 
     <h1 class="text-center movie-list-title">Movie List</h1>
 
+    <p><a href="{% url 'movie_database' %}">Movie Database</a></p>
+    <p><a href="{% url 'about_movie_critic' %}">About Movie Critic</a></p>
   <div class="row movie-grid">
     {% for movie in movies %}
       <div class="col-md-4 mb-4">

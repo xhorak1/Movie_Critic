@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>About Movie Critic</h1>
+  <p>Welcome to Movie Critic, your go-to platform for discovering and reviewing movies! This project was created to allow users to browse, review, and share their thoughts on various films. Whether you're a movie buff or just looking for something new to watch, Movie Critic has something for everyone.</p>
+  
+  <h2>Features</h2>
+  <ul>
+    <li>Browse through a comprehensive database of movies.</li>
+    <li>Filter and sort movies by genre, rating, and release date.</li>
+    <li>Read reviews from other users and share your own thoughts.</li>
+    <li>Add new movies to the database (for registered users).</li>
+  </ul>
+
+  <h2>Project Details</h2>
+  <p>This project is built using Django, a high-level Python web framework that encourages rapid development and clean, pragmatic design. The goal is to create a simple, yet powerful platform for movie enthusiasts.</p>
+
+  <p>We hope you enjoy using Movie Critic and find it useful for discovering new movies and sharing your opinions!</p>
+
+  <p><a href="{% url 'index' %}">Back to Home</a></p>
+{% endblock %}
