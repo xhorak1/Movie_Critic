@@ -101,7 +101,6 @@ def movie_database(request):
     if request.method == 'POST':
         form = MovieForm(request.POST)
         if form.is_valid():
-            # Check if a movie with the same title exists
             title = form.cleaned_data.get('title')
             if Movie.objects.filter(title__iexact=title).exists():
                 form.add_error('title', 'Dear user, a movie with this title already exists in the database.')
@@ -110,7 +109,6 @@ def movie_database(request):
                 messages.success(request, 'Movie added successfully.')
                 return redirect('movie_database')
         else:
-            # If form is not valid, messages will automatically be handled in the template
             messages.error(request, 'Please correct the errors below.')
 
     else:
