@@ -10,6 +10,8 @@ from .forms import CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import MovieForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 
 
 def index(request):
@@ -36,7 +38,10 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('index')  # Redirect to the homepage or another page
+            messages.success(request, 'Sign up successful.')
+            return redirect('index')
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
     else:
         form = CustomUserCreationForm()
     return render(request, 'reviews/signup.html', {'form': form})
@@ -61,6 +66,7 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
+            messages.success(request, 'You have been logged in.')
             return redirect('index')  # Redirect to the homepage or another page
     else:
         form = AuthenticationForm()
@@ -111,4 +117,8 @@ def about_movie_critic(request):
 
 def privacy_policy(request):
     return render(request, 'reviews/privacy_policy.html')
+
+def custom_logout(request):
+    logout(request)
+    return redirect('index')
 

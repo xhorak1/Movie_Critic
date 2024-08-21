@@ -11,11 +11,24 @@ class ReviewForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, label='Email')
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ('username', 'email', 'password1', 'password2')
+        labels = {
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
+        help_texts = {
+            'username': None,
+            'password1': None,
+            'password2': None,
+        }
+        widgets = {
+            'password1': forms.PasswordInput(),
+            'password2': forms.PasswordInput(),
+        }
 
 class MovieForm(forms.ModelForm):
     class Meta:

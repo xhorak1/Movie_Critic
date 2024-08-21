@@ -131,7 +131,7 @@ AUTHENTICATION_BACKENDS = [
     # Add other backends if necessary
 ]
 
-LOGIN_REDIRECT_URL = '/'  # Redirect URL after login
-LOGOUT_REDIRECT_URL = '/'  # Redirect URL after logout
+LOGIN_REDIRECT_URL = 'index'  # Redirect URL after login
+LOGOUT_REDIRECT_URL = 'index'  # Redirect URL after logout
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

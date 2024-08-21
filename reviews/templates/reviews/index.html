@@ -2,17 +2,17 @@
 
 {% block content %}
 <div class="container mt-4">
-  {% if username %}
-    <p class="welcome-text">Welcome, {{ username }}!</p>
+  {% if user.is_authenticated %}
+    <p class="welcome-text">Welcome, {{ user.username }}!</p>
   {% else %}
     <p class="welcome-text">Welcome, Guest! Please <a href="{% url 'signup' %}">sign up</a> or <a href="{% url 'login' %}">log in</a>.</p>
   {% endif %}
 
+  <h1 class="text-center movie-list-title">Movie List</h1>
 
-    <h1 class="text-center movie-list-title">Movie List</h1>
+  <p><a href="{% url 'movie_database' %}">Movie Database</a></p>
+  <p><a href="{% url 'about_movie_critic' %}">About Movie Critic</a></p>
 
-    <p><a href="{% url 'movie_database' %}">Movie Database</a></p>
-    <p><a href="{% url 'about_movie_critic' %}">About Movie Critic</a></p>
   <div class="row movie-grid">
     {% for movie in movies %}
       <div class="col-md-4 mb-4">
