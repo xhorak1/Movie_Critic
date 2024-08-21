@@ -15,8 +15,18 @@ from django.contrib.auth import logout
 
 
 def index(request):
+    query = request.GET.get('query', '')
+    if query:
+        search_results = Movie.objects.filter(title__icontains=query)
+    else:
+        search_results = None
+
     movies = Movie.objects.all()
-    return render(request, 'reviews/index.html', {'movies': movies, 'user': request.user})
+
+    return render(request, 'reviews/index.html', {
+        'movies': movies,
+        'search_results': search_results,
+    })
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     reviews = movie.reviews.all()

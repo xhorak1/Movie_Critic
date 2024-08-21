@@ -8,10 +8,37 @@
     <p class="welcome-text">Welcome, Guest! Please <a href="{% url 'signup' %}">sign up</a> or <a href="{% url 'login' %}">log in</a>.</p>
   {% endif %}
 
-  <h1 class="text-center movie-list-title">Movie List</h1>
-
   <p><a href="{% url 'movie_database' %}">Movie Database</a></p>
   <p><a href="{% url 'about_movie_critic' %}">About Movie Critic</a></p>
+
+  <div class="search-engine mt-4">
+    <h2>Search for a Movie:</h2>
+    <form method="get" action="{% url 'index' %}">
+      <input type="text" name="query" placeholder="Enter movie title" class="form-control" required>
+      <button type="submit" class="btn btn-primary mt-2">Search</button>
+    </form>
+  </div>
+
+  {% if search_results %}
+    <h3 class="mt-4">Search Results:</h3>
+    <div class="row movie-grid">
+      {% for movie in search_results %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 movie-card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title">
+                <a href="{% url 'movie_detail' movie.id %}" class="movie-link">{{ movie.title }}</a>
+              </h2>
+              <p class="card-text">Rating: {{ movie.rating }}/10</p>
+              <p class="card-text">Genre: {{ movie.genre }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <h1 class="text-center movie-list-title">Movie List:</h1>
 
   <div class="row movie-grid">
     {% for movie in movies %}

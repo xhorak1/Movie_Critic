@@ -77,3 +77,12 @@ form {
 .footer a:hover {
     text-decoration: underline;
 }
+
+.search-engine input.form-control {
+    max-width: 300px;
+    display: inline-block;
+}
+
+.search-engine button.btn {
+    margin-left: 10px;
+}
