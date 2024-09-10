@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-^1m($x*^s%f%sp&^1@n^(o5!g2cj@63*_nzy^c6jsi#q==2mp6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -118,6 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [BASE_DIR / "static",]
 
@@ -135,3 +136,4 @@ LOGIN_REDIRECT_URL = 'index'  # Redirect URL after login
 LOGOUT_REDIRECT_URL = 'index'  # Redirect URL after logout
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+

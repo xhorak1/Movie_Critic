@@ -83,7 +83,7 @@ def login(request):
     return render(request, 'reviews/login.html', {'form': form})
 
 def movie_list(request):
-    movies = Movie.objects.all()  # Assuming you have a Movie model
+    movies = Movie.objects.all()
     return render(request, 'reviews/movie_list.html', {'movies': movies})
 
 def movie_database(request):
